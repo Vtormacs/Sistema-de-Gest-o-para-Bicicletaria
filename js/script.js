@@ -27,3 +27,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const logoutButton = document.getElementById('logout-btn');
+
+    if(logoutButton) {
+        logoutButton.addEventListener('click', function(event) {
+            event.preventDefault(); // Previne o comportamento padrão do link
+
+            // Remove o "crachá" do sessionStorage
+            sessionStorage.removeItem('usuarioLogado');
+
+            // Redireciona para a página de login
+            alert('Você saiu do sistema.');
+            window.location.href = 'login.html';
+        });
+    }
+});
