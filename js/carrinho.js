@@ -2,11 +2,9 @@
 
 /**
  * Adiciona um produto ao carrinho no localStorage.
- * O carrinho armazena apenas o ID do produto e a quantidade.
  * @param {number} produtoId - O ID do produto a ser adicionado.
  */
 function adicionarAoCarrinho(produtoId) {
-    // Busca a lista de todos os produtos para garantir que o produto existe.
     const todosProdutos = JSON.parse(localStorage.getItem('produtos')) || [];
     const produto = todosProdutos.find(p => p.id === produtoId);
 
@@ -15,27 +13,21 @@ function adicionarAoCarrinho(produtoId) {
         return;
     }
 
-    // Busca o carrinho atual do localStorage.
     let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-
-    // Verifica se o produto já está no carrinho.
     const itemNoCarrinho = carrinho.find(item => item.id === produtoId);
 
     if (itemNoCarrinho) {
-        // Se já estiver, apenas incrementa a quantidade.
         itemNoCarrinho.quantidade++;
     } else {
-        // Se não estiver, adiciona o novo item com quantidade 1.
         carrinho.push({ id: produtoId, quantidade: 1 });
     }
 
-    // Salva o carrinho atualizado de volta no localStorage.
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
     alert(`"${produto.descricao}" foi adicionado ao carrinho!`);
 }
 
 /**
- * Renderiza os itens do carrinho na página carrinho.html.
+ * Renderiza os itens do carrinho e o total na página.
  */
 function renderizarCarrinho() {
     const todosProdutos = JSON.parse(localStorage.getItem('produtos')) || [];
@@ -45,7 +37,7 @@ function renderizarCarrinho() {
     const containerTotal = document.getElementById('total-carrinho');
 
     if (containerItens) {
-        containerItens.innerHTML = ''; // Limpa a área antes de renderizar.
+        containerItens.innerHTML = '';
         let totalGeral = 0;
 
         if (carrinho.length === 0) {
@@ -90,70 +82,17 @@ function renderizarCarrinho() {
         tabela.appendChild(tbody);
         containerItens.appendChild(tabela);
 
-        // Renderiza o total
         containerTotal.innerHTML = `
             <h3>Total da Compra:</h3>
             <p>R$ ${totalGeral.toFixed(2)}</p>
-            <button class="btn">Finalizar Compra</button>
-        `;
-    }
-}
-
-function renderizarCarrinho() {
-    const todosProdutos = JSON.parse(localStorage.getItem('produtos')) || [];
-    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    
-    const containerItens = document.getElementById('itens-carrinho');
-    const containerTotal = document.getElementById('total-carrinho');
-
-    if (containerItens) {
-        containerItens.innerHTML = ''; 
-        let totalGeral = 0;
-
-        if (carrinho.length === 0) {
-            containerItens.innerHTML = '<p>Seu carrinho está vazio.</p>';
-            containerTotal.innerHTML = '';
-            return;
-        }
-
-        const tabela = document.createElement('table');
-        tabela.className = 'tabela-carrinho';
-        tabela.innerHTML = `...`; // O conteúdo da tabela continua o mesmo
-
-        const tbody = document.createElement('tbody');
-        carrinho.forEach(item => {
-            const produtoInfo = todosProdutos.find(p => p.id === item.id);
-            if (produtoInfo) {
-                const subtotal = produtoInfo.precoVenda * item.quantidade;
-                totalGeral += subtotal;
-
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${produtoInfo.descricao}</td>
-                    <td>R$ ${produtoInfo.precoVenda.toFixed(2)}</td>
-                    <td>${item.quantidade}</td>
-                    <td>R$ ${subtotal.toFixed(2)}</td>
-                    <td><button class="btn-remover" onclick="removerDoCarrinho(${item.id})">Remover</button></td>
-                `;
-                tbody.appendChild(tr);
-            }
-        });
-
-        tabela.appendChild(tbody);
-        containerItens.appendChild(tabela);
-
-        // Renderiza o total
-        containerTotal.innerHTML = `
-            <h3>Total da Compra:</h3>
-            <p>R$ ${totalGeral.toFixed(2)}</p>
-            <button class="btn" onclick="finalizarVenda()">Finalizar Compra</button>
+            <button class="btn" onclick="abrirModalVenda()">Finalizar Compra</button>
         `;
     }
 }
 
 /**
- * Remove um item do carrinho.
- * ... (a função removerDoCarrinho continua a mesma)
+ * Remove um item do carrinho e atualiza a visualização.
+ * @param {number} produtoId - O ID do produto a ser removido.
  */
 function removerDoCarrinho(produtoId) {
     let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
@@ -162,25 +101,36 @@ function removerDoCarrinho(produtoId) {
     renderizarCarrinho();
 }
 
-
-// --- NOVA FUNÇÃO PARA FINALIZAR A VENDA ---
 /**
- * Simula a finalização da venda, registra a transação e limpa o carrinho.
+ * Abre o modal de finalização de venda.
  */
-function finalizarVenda() {
+function abrirModalVenda() {
     const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    const todosProdutos = JSON.parse(localStorage.getItem('produtos')) || [];
-
     if (carrinho.length === 0) {
         alert('Seu carrinho está vazio!');
         return;
     }
+    document.getElementById('modal-venda').style.display = 'block';
+}
 
-    // Pega o histórico de vendas ou cria um novo
+/**
+ * Fecha o modal de finalização de venda.
+ */
+function fecharModalVenda() {
+    document.getElementById('modal-venda').style.display = 'none';
+}
+
+/**
+ * Finaliza a venda, registra no histórico e limpa o carrinho.
+ * @param {string} vendedor - O nome do vendedor.
+ * @param {string} formaPagamento - A forma de pagamento escolhida.
+ */
+function finalizarVenda(vendedor, formaPagamento) {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    const todosProdutos = JSON.parse(localStorage.getItem('produtos')) || [];
     let vendas = JSON.parse(localStorage.getItem('vendas')) || [];
-
-    // Calcula o total e cria uma lista detalhada dos itens da venda
     let totalVenda = 0;
+
     const itensVenda = carrinho.map(item => {
         const produtoInfo = todosProdutos.find(p => p.id === item.id);
         totalVenda += produtoInfo.precoVenda * item.quantidade;
@@ -192,31 +142,36 @@ function finalizarVenda() {
         };
     });
 
-    // Cria um novo objeto de venda
     const novaVenda = {
         id: Date.now(),
-        data: new Date().toLocaleString('pt-BR'), // Data e hora da venda
+        data: new Date().toLocaleString('pt-BR'),
+        vendedor: vendedor,
+        formaPagamento: formaPagamento,
         itens: itensVenda,
         total: totalVenda
     };
 
-    // Adiciona a nova venda ao histórico
     vendas.push(novaVenda);
-    
-    // Salva o histórico de vendas atualizado
     localStorage.setItem('vendas', JSON.stringify(vendas));
-
-    // Limpa o carrinho
     localStorage.removeItem('carrinho');
 
     alert('Venda realizada com sucesso!');
-    
-    // Redireciona o usuário para o dashboard para ver o histórico
     window.location.href = 'index.html';
 }
 
-
 // --- LÓGICA EXECUTADA QUANDO A PÁGINA É CARREGADA ---
 document.addEventListener('DOMContentLoaded', function() {
+    // Renderiza o conteúdo do carrinho ao carregar a página
     renderizarCarrinho();
+
+    // Adiciona o listener para o formulário DENTRO do modal
+    const formDetalhes = document.getElementById('form-detalhes-venda');
+    if (formDetalhes) {
+        formDetalhes.addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o recarregamento da página
+            const vendedor = document.getElementById('vendedor').value;
+            const formaPagamento = document.getElementById('forma-pagamento').value;
+            finalizarVenda(vendedor, formaPagamento);
+        });
+    }
 });

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Vendas - Gestão de Bicicletaria</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/verifica-login.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h2>Gestão de Bicicletaria</h2>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Dashboard</a></li>
+                    <li><a href="cadastro-produto.html">Cadastro</a></li>
+                    <li><a href="vitrine.html">Vitrine</a></li>
+                    <li><a href="carrinho.html">Carrinho</a></li>
+                    <li><a href="relatorio-vendas.html">Relatórios</a></li>
+                    <li><a href="#" id="logout-btn">Sair</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <h1>Relatório Detalhado de Vendas</h1>
+            
+            <div class="filtros-container">
+                <input type="text" id="filtro-descricao" placeholder="Filtrar por descrição...">
+                <input type="text" id="filtro-vendedor" placeholder="Filtrar por vendedor...">
+            </div>
+
+            <table class="tabela-relatorio">
+                <thead>
+                    <tr>
+                        <th>Data da Venda</th>
+                        <th>Item Vendido (Descrição)</th>
+                        <th>Vendedor(a)</th>
+                        <th>Forma de Pagamento</th>
+                        <th>Qtd.</th>
+                        <th>Valor Unit.</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="corpo-tabela-relatorio">
+                    </tbody>
+            </table>
+
+            <div id="totais-relatorio" class="totais-relatorio-container"></div>
+        </main>
+    </div>
+
+    <script src="js/script.js"></script> 
+    <script src="js/relatorio.js"></script>
+</body>
+</html>

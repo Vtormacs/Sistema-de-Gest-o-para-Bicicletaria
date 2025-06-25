@@ -18,6 +18,7 @@
                     <li><a href="cadastro-produto.html">Cadastro</a></li>
                     <li><a href="vitrine.html">Vitrine</a></li>
                     <li><a href="carrinho.html">Carrinho</a></li>
+                    <li><a href="relatorio-vendas.html">Relatórios</a></li>
                     <li><a href="#" id="logout-btn">Sair</a></li>
                 </ul>
             </nav>
@@ -25,6 +26,7 @@
 
         <main>
             <h1>Meu Carrinho de Compras</h1>
+            
             <div id="itens-carrinho"></div>
             
             <hr style="margin: 20px 0;">
@@ -32,6 +34,30 @@
             <div id="total-carrinho" class="total-carrinho-container"></div>
         </main>
     </div>
+
+    <div id="modal-venda" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="fecharModalVenda()">&times;</span>
+        <h2>Detalhes da Venda</h2>
+        <form id="form-detalhes-venda">
+            <div class="form-group">
+                <label for="vendedor">Vendedor(a)</label>
+                <input type="text" id="vendedor" value="admin" required>
+            </div>
+            <div class="form-group">
+                <label for="forma-pagamento">Forma de Pagamento</label>
+                <select id="forma-pagamento" required>
+                    <option value="PIX">PIX</option>
+                    <option value="Cartão de Crédito">Cartão de Crédito</option>
+                    <option value="Cartão de Débito">Cartão de Débito</option>
+                    <option value="Dinheiro">Dinheiro</option>
+                </select>
+            </div>
+            <button type="submit" class="btn">Confirmar Venda</button>
+        </form>
+      </div>
+    </div>
+
 
     <script src="js/script.js"></script>
     <script src="js/carrinho.js"></script>
