@@ -11,7 +11,7 @@ Aplicação web front-end completa desenvolvida como projeto acadêmico, simulan
 
 | Dashboard Principal | Vitrine de Produtos | Ordem de Serviço |
 | :---: | :---: | :---: |
-| ![Dashboard](img/image.png) | ![Vitrine](img/image copy.png) | ![Ordem de Serviço](img/image copy 2.png) |
+| ![Dashboard](img/image.png) | ![Vitrine](img/imagecopy.png) | ![Ordem de Serviço](img/imagecopy 2.png) |
 
 *(**Instrução:** Tire screenshots das principais telas do seu sistema, adicione os arquivos de imagem à pasta do seu projeto e substitua os links acima pelo caminho correto para cada imagem.)*
 
