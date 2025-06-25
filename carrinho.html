@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Sistema de Gestão de Bicicletaria</title>
+    <title>Carrinho de Compras - Gestão de Bicicletaria</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/verifica-login.js"></script>
 </head>
@@ -13,7 +13,7 @@
         <header>
             <h2>Gestão de Bicicletaria</h2>
             <nav>
-               <ul>
+                <ul>
                     <li><a href="index.html">Dashboard</a></li>
                     <li><a href="cadastro-produto.html">Cadastro</a></li>
                     <li><a href="vitrine.html">Vitrine</a></li>
@@ -24,22 +24,16 @@
         </header>
 
         <main>
-    <h1>Painel Principal</h1>
-    <p>Bem-vindo ao sistema! Utilize o menu acima para navegar pelas funcionalidades.</p>
-    
-    <hr style="margin: 20px 0;">
+            <h1>Meu Carrinho de Compras</h1>
+            <div id="itens-carrinho"></div>
+            
+            <hr style="margin: 20px 0;">
 
-    <h2>Produtos Cadastrados</h2>
-    <div id="lista-produtos">
-        </div>
-<hr style="margin: 40px 0;">
-
-    <h2>Histórico de Vendas</h2>
-    <div id="historico-vendas">
-        </div>
-</main>
+            <div id="total-carrinho" class="total-carrinho-container"></div>
+        </main>
     </div>
 
     <script src="js/script.js"></script>
+    <script src="js/carrinho.js"></script>
 </body>
 </html>

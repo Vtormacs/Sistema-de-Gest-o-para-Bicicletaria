@@ -1,4 +1,4 @@
-/* css/style.css */
+
 
 /* --- Estilos Gerais e Reset --- */
 * {
@@ -107,7 +107,6 @@ nav ul li a {
     font-weight: bold;
 }
 
-/* css/style.css - adicione no final do arquivo */
 
 .tabela-produtos {
     width: 100%;
@@ -133,4 +132,131 @@ nav ul li a {
 
 .tabela-produtos tbody tr:hover {
     background-color: #ddd;
+}
+
+/* --- Estilos da Vitrine --- */
+.vitrine-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.produto-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 220px;
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.2s;
+}
+
+.produto-card:hover {
+    transform: translateY(-5px);
+}
+
+.produto-card img {
+    max-width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.produto-card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+    height: 50px;
+}
+
+.produto-card .preco {
+    font-size: 20px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+
+/* --- Estilos do Carrinho --- */
+.tabela-carrinho {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tabela-carrinho th,
+.tabela-carrinho td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.tabela-carrinho thead {
+    background-color: #e9ecef;
+}
+
+.btn-remover {
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-remover:hover {
+    background-color: #c82333;
+}
+
+.total-carrinho-container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    text-align: right;
+}
+
+.total-carrinho-container h3 {
+    margin: 0;
+}
+
+.total-carrinho-container p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #28a745;
+    margin: 5px 0 15px 0;
+}
+
+
+/* --- Estilos do Histórico de Vendas --- */
+.venda-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.venda-card h4 {
+    margin-top: 0;
+    color: #0056b3;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.venda-card p {
+    font-size: 16px;
+}
+
+.venda-card ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 14px;
+}
+
+.venda-card li {
+    padding: 4px 0;
 }
