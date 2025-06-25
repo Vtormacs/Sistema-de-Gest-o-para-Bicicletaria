@@ -2,9 +2,6 @@
 // FUNÇÕES DE RENDERIZAÇÃO (EXIBIÇÃO DE DADOS)
 // ===================================================================
 
-/**
- * Renderiza a tabela de produtos no dashboard (index.html).
- */
 function renderizarProdutos() {
     const listaProdutosContainer = document.getElementById('lista-produtos');
     if (listaProdutosContainer) {
@@ -41,9 +38,6 @@ function renderizarProdutos() {
     }
 }
 
-/**
- * Renderiza os cards de produtos na vitrine (vitrine.html).
- */
 function renderizarVitrine() {
     const vitrineContainer = document.getElementById('vitrine-produtos');
     if (vitrineContainer) {
@@ -55,9 +49,10 @@ function renderizarVitrine() {
             produtos.forEach(produto => {
                 const card = document.createElement('div');
                 card.className = 'produto-card';
+                const imagemSrc = produto.imagem || 'https://via.placeholder.com/240x160';
                 const precoVendaFormatado = typeof produto.precoVenda === 'number' ? produto.precoVenda.toFixed(2) : '0.00';
                 card.innerHTML = `
-                    <img src="https://via.placeholder.com/200" alt="Imagem do Produto">
+                    <img src="${imagemSrc}" alt="${produto.descricao}">
                     <h3>${produto.descricao}</h3>
                     <p class="preco">R$ ${precoVendaFormatado}</p>
                     <button class="btn" onclick="adicionarAoCarrinho(${produto.id})">Adicionar ao Carrinho</button>
@@ -68,77 +63,20 @@ function renderizarVitrine() {
     }
 }
 
-// ===================================================================
-// EVENTO PRINCIPAL - RODA QUANDO A PÁGINA CARREGA
-// ===================================================================
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // --- LÓGICA DO FORMULÁRIO DE CADASTRO DE PRODUTO ---
-    const formCadastro = document.getElementById('form-cadastro-produto');
-    if (formCadastro) {
-        formCadastro.addEventListener('submit', function(event) {
-            event.preventDefault(); 
-            const produtos = JSON.parse(localStorage.getItem('produtos')) || [];
-            const precoVendaInput = parseFloat(document.getElementById('preco-venda').value);
-            const precoCustoInput = parseFloat(document.getElementById('preco-custo').value);
-            const novoProduto = {
-                id: Date.now(), 
-                descricao: document.getElementById('descricao').value,
-                precoVenda: isNaN(precoVendaInput) ? 0 : precoVendaInput,
-                precoCusto: isNaN(precoCustoInput) ? 0 : precoCustoInput,
-                fabricante: document.getElementById('fabricante').value,
-                categoria: document.getElementById('categoria').value,
-            };
-            produtos.push(novoProduto);
-            localStorage.setItem('produtos', JSON.stringify(produtos));
-            alert('Produto cadastrado com sucesso!');
-            formCadastro.reset();
-        });
-    }
-
-    // --- LÓGICA DO BOTÃO DE LOGOUT ---
-    const logoutButton = document.getElementById('logout-btn');
-    if (logoutButton) {
-        logoutButton.addEventListener('click', function(event) {
-            event.preventDefault(); 
-            sessionStorage.removeItem('usuarioLogado');
-            alert('Você saiu do sistema.');
-            window.location.href = 'login.html';
-        });
-    }
-
-    // --- CHAMADAS DE RENDERIZAÇÃO ---
-    // O script tentará executar ambas as funções em todas as páginas.
-    // Cada função só fará algo se encontrar o seu respectivo container na página.
-    renderizarProdutos(); // Para o dashboard
-    renderizarVitrine();  // Para a vitrine
-     renderizarHistoricoVendas();
-});
-
-// Adicione esta nova função ao seu arquivo js/script.js
-
-/**
- * Renderiza o histórico de vendas no dashboard.
- */
 function renderizarHistoricoVendas() {
     const historicoContainer = document.getElementById('historico-vendas');
     if (historicoContainer) {
         const vendas = JSON.parse(localStorage.getItem('vendas')) || [];
         historicoContainer.innerHTML = '';
-
         if (vendas.length === 0) {
             historicoContainer.innerHTML = '<p>Nenhuma venda foi realizada ainda.</p>';
         } else {
-            // Ordena as vendas da mais recente para a mais antiga
             vendas.sort((a, b) => b.id - a.id).forEach(venda => {
                 const cardVenda = document.createElement('div');
                 cardVenda.className = 'venda-card';
-
-                // Cria a lista de itens da venda para o HTML
                 const itensHtml = venda.itens.map(item => 
                     `<li>${item.quantidade}x ${item.descricao} - R$ ${item.precoUnitario.toFixed(2)}</li>`
                 ).join('');
-
                 cardVenda.innerHTML = `
                     <h4>Venda #${venda.id} - Data: ${venda.data}</h4>
                     <p><strong>Total da Venda: R$ ${venda.total.toFixed(2)}</strong></p>
@@ -149,3 +87,67 @@ function renderizarHistoricoVendas() {
         }
     }
 }
+
+// ===================================================================
+// EVENTO PRINCIPAL - RODA QUANDO A PÁGINA CARREGA
+// ===================================================================
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const formCadastro = document.getElementById('form-cadastro-produto');
+    if (formCadastro) {
+        formCadastro.addEventListener('submit', async function(event) {
+            event.preventDefault(); 
+            const produtos = JSON.parse(localStorage.getItem('produtos')) || [];
+            
+            const imagemInput = document.getElementById('imagem');
+            let imagemBase64 = null;
+
+            if (imagemInput.files && imagemInput.files[0]) {
+                try {
+                    imagemBase64 = await new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.readAsDataURL(imagemInput.files[0]);
+                        reader.onload = () => resolve(reader.result);
+                        reader.onerror = error => reject(error);
+                    });
+                } catch (error) {
+                    console.error("Erro ao ler a imagem:", error);
+                    alert("Houve um erro ao processar a imagem.");
+                    return;
+                }
+            }
+
+            const precoVendaInput = parseFloat(document.getElementById('preco-venda').value);
+            const precoCustoInput = parseFloat(document.getElementById('preco-custo').value);
+            
+            const novoProduto = {
+                id: Date.now(), 
+                descricao: document.getElementById('descricao').value,
+                imagem: imagemBase64,
+                precoVenda: isNaN(precoVendaInput) ? 0 : precoVendaInput,
+                precoCusto: isNaN(precoCustoInput) ? 0 : precoCustoInput,
+                fabricante: document.getElementById('fabricante').value,
+                categoria: document.getElementById('categoria').value,
+            };
+            
+            produtos.push(novoProduto);
+            localStorage.setItem('produtos', JSON.stringify(produtos));
+            alert('Produto cadastrado com sucesso!');
+            formCadastro.reset();
+        });
+    }
+
+    const logoutButton = document.getElementById('logout-btn');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function(event) {
+            event.preventDefault(); 
+            sessionStorage.removeItem('usuarioLogado');
+            alert('Você saiu do sistema.');
+            window.location.href = 'login.html';
+        });
+    }
+
+    renderizarProdutos();
+    renderizarVitrine();
+    renderizarHistoricoVendas();
+});
