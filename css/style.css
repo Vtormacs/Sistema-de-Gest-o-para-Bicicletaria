@@ -106,3 +106,31 @@ nav ul li a {
     color: white;
     font-weight: bold;
 }
+
+/* css/style.css - adicione no final do arquivo */
+
+.tabela-produtos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tabela-produtos th,
+.tabela-produtos td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.tabela-produtos thead {
+    background-color: #007bff;
+    color: white;
+}
+
+.tabela-produtos tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.tabela-produtos tbody tr:hover {
+    background-color: #ddd;
+}
