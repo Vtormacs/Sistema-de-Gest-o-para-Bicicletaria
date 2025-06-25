@@ -342,3 +342,85 @@ nav ul li a {
     border-radius: 8px;
     text-align: right;
 }
+
+
+/* --- Estilos da Ordem de Serviço --- */
+.form-container-os {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.os-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+.os-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.os-header h4 {
+    margin: 0;
+}
+
+.os-footer {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.status {
+    padding: 3px 8px;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+}
+.status.aberto { background-color: #007bff; }
+.status.em-andamento { background-color: #ffc107; color: #333; }
+.status.finalizado { background-color: #28a745; }
+.status.faturado { background-color: #6c757d; }
+
+.modal-lg {
+    max-width: 800px;
+}
+
+#conteudo-modal-os ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+#conteudo-modal-os li {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remover-item {
+    color: #dc3545;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.add-item-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+#select-item-os {
+    flex-grow: 1;
+    padding: 8px;
+}

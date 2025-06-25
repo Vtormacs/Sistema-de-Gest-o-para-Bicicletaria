@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordens de Serviço - Gestão de Bicicletaria</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/verifica-login.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h2>Gestão de Bicicletaria</h2>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Dashboard</a></li>
+                    <li><a href="cadastro-produto.html">Cadastro</a></li>
+                    <li><a href="vitrine.html">Vitrine</a></li>
+                    <li><a href="carrinho.html">Carrinho</a></li>
+                    <li><a href="relatorio-vendas.html">Relatórios</a></li>
+                    <li><a href="os.html">Ordem de Serviço</a></li>
+                    <li><a href="#" id="logout-btn">Sair</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <h1>Controle de Ordem de Serviço</h1>
+            
+            <div class="form-container-os">
+                <h3>Registrar Nova Ordem de Serviço</h3>
+                <form id="form-nova-os">
+                    <div class="form-group">
+                        <label for="cliente-nome">Nome do Cliente</label>
+                        <input type="text" id="cliente-nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cliente-telefone">Telefone do Cliente</label>
+                        <input type="tel" id="cliente-telefone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bike-info">Descrição da Bicicleta (Marca, Modelo, Cor)</label>
+                        <input type="text" id="bike-info" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="problema-relatado">Problema Relatado pelo Cliente</label>
+                        <textarea id="problema-relatado" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Criar O.S.</button>
+                </form>
+            </div>
+
+            <hr style="margin: 40px 0;">
+
+            <h3>Ordens de Serviço em Aberto</h3>
+            <div id="lista-os">
+                </div>
+        </main>
+    </div>
+
+    <div id="modal-os-detalhes" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close" onclick="fecharModalDetalhes()">&times;</span>
+            <div id="conteudo-modal-os">
+                </div>
+        </div>
+    </div>
+    
+    <script src="js/script.js"></script>
+    <script src="js/carrinho.js"></script>
+    <script src="js/os.js"></script>
+</body>
+</html>
