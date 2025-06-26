@@ -98,18 +98,3 @@ O usuário de teste para acesso ao sistema é:
 |-- vitrine.html
 |-- README.md
 ```
-
----
-
-## 👨‍💻 Autor
-
-Desenvolvido por **[Seu Nome Completo]**.
-
-* **GitHub:** [Link para o seu perfil no GitHub]
-* **LinkedIn:** [Link para o seu perfil no LinkedIn]
-
----
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
