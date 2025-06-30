@@ -54,7 +54,7 @@ Como este é um projeto puramente front-end, não há necessidade de um processo
 
 1.  Clone este repositório para a sua máquina local:
     ```bash
-    git clone [LINK-PARA-SEU-REPOSITORIO.git]
+    git clone https://github.com/Vtormacs/Sistema-de-Gest-o-para-Bicicletaria.git
     ```
 2.  Navegue até a pasta do projeto.
 3.  Abra o arquivo `login.html` em qualquer navegador moderno (Chrome, Firefox, Edge).
