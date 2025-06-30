@@ -13,8 +13,6 @@ Aplicação web front-end completa desenvolvida como projeto acadêmico, simulan
 | :---: | :---: | :---: |
 | ![Dashboard](img/image.png) | ![Vitrine](img/imagecopy.png) | ![Ordem de Serviço](img/imagecopy2.png) |
 
-*(**Instrução:** Tire screenshots das principais telas do seu sistema, adicione os arquivos de imagem à pasta do seu projeto e substitua os links acima pelo caminho correto para cada imagem.)*
-
 ---
 
 ## ✨ Funcionalidades Principais
